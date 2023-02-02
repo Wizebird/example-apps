@@ -17,7 +17,7 @@ node {
     
     stage('login to docker hub') {
   
-            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            sh 'echo $DOCKERHUB_CREDENTIALS | docker login -u wizebird --password-stdin'
     }
 
     stage('Push image') {
