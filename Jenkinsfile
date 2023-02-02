@@ -15,13 +15,16 @@ node {
         app = docker.build("getintodevops/example-app")
     }
     
-    stage('login to docker hub') {
-  
-            sh 'echo $DOCKERHUB_CREDENTIALS | docker login -u wizebird --password-stdin'
-    }
-
-    stage('Push image') {
-        /* Finally, we'll push the image into Docker Hub */
-            sh 'docker push wizebird/kloud45:latest'
-    }
 }
+    stage('Docker Push') {
+    	agent any
+      steps {
+      	withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+        	sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+           sh 'docker push wizebird/kloud45:latest'
+        }
+      }
+    }
+  }
+}
+
