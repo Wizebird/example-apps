@@ -16,17 +16,12 @@ node {
     }
     
     stage('login to docker hub') {
-        steps {
+  
             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        }
-        
     }
 
     stage('Push image') {
         /* Finally, we'll push the image into Docker Hub */
-        steps {
             sh 'docker push wizebird/kloud45:latest'
-        }
-
     }
 }
